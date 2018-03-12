@@ -1,12 +1,17 @@
 package com.br.casadocodigo.loja.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.br.casadocodigo.loja.models.Produtos;
+import com.br.casadocodigo.loja.daos.ProdutoDao;
+import com.br.casadocodigo.loja.models.Produto;
 
 @Controller
 public class ProdutosController {
+	
+	@Autowired
+	private ProdutoDao produtoDao;
 	
 	@RequestMapping("/produtos/produtosform")
 	public String ProdutosRequisicao(){
@@ -20,8 +25,9 @@ public class ProdutosController {
 	}*/
 	
 	@RequestMapping("/produtos")
-	public String gravar(Produtos produto){
+	public String gravar(Produto produto){
 		System.out.println(produto);
+		produtoDao.gravar(produto);
 		return "produtos/ok";
 	}
 }
