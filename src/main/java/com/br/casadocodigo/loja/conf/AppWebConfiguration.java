@@ -13,12 +13,12 @@ import com.br.casadocodigo.loja.controllers.HomeController;
 public class AppWebConfiguration {
 	
 	//InternalResourceViewResolver fala ao spring o local das views
-	//@Bean retorna da chamada deste met√≥do possa ser gerenciada pelo SpringMVC
+	//@Bean retorno da chamada deste metÛdo possa ser gerenciada pelo SpringMVC
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver(){
 		InternalResourceViewResolver resolverView = new InternalResourceViewResolver();
 		resolverView.setPrefix("/WEB-INF/views/"); // Local das view
-		resolverView.setSuffix(".jsp"); //extens√£o das views
+		resolverView.setSuffix(".jsp"); //extens„o das views
 		return resolverView;
 	}
 
