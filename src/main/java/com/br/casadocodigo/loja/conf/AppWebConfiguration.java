@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.datetime.DateFormatter;
+import org.springframework.format.datetime.DateFormatterRegistrar;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -26,6 +30,7 @@ public class AppWebConfiguration {
 		return resolverView;
 	}
 	
+	//ReloadableResourceBundleMessageSource responsável pelas mensagens do sistema
 	@Bean
 	public MessageSource messageSource(){
 		ReloadableResourceBundleMessageSource message = new ReloadableResourceBundleMessageSource();
@@ -33,5 +38,15 @@ public class AppWebConfiguration {
 		message.setDefaultEncoding("UTF-8");
 		message.setCacheSeconds(5);
 		return message;
+	}
+	
+	//DefaultFormattingConversionService Responsável pela formatação da data do sistema
+	@Bean
+	public FormattingConversionService mvcConversionService(){
+	    DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
+	    DateFormatterRegistrar formatterRegistrar = new DateFormatterRegistrar();
+	    formatterRegistrar.setFormatter(new DateFormatter("dd/MM/yyyy"));
+	    formatterRegistrar.registerFormatters(conversionService);
+	    return conversionService;
 	}
 }
