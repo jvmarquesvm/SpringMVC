@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Casa do Código - Aulas Alura</title>
 </head>
 <body>
 	<h1>Produto Cadastrado com sucesso!!!</h1>

@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Casa do Código - Aulas Alura</title>
 </head>
 <body>
 	<h1>Lista de Produtos</h1>
+	<div>${retorno}</div>
 	<table>
 		<tr>
 		<td>Título</td>

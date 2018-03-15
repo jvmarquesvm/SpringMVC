@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.br.casadocodigo.loja.daos.ProdutoDao;
 import com.br.casadocodigo.loja.models.Produto;
@@ -41,10 +42,12 @@ public class ProdutosController {
 	//método GET
 	//@RequestMapping(value="/produtos", method=RequestMethod.POST)
 	@RequestMapping(method=RequestMethod.POST)
-	public String gravar(Produto produto){
+	public ModelAndView gravar(Produto produto, RedirectAttributes reAttr){
 		System.out.println(produto);
 		produtoDao.gravar(produto);
-		return "produtos/ok";
+		//return "produtos/ok";
+		reAttr.addFlashAttribute("retorno", "Produto cadastrado com sucesso!");
+		return new ModelAndView("redirect:produtos");
 	}
 	
 	//método POST --Assim ou
