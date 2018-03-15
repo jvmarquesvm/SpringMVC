@@ -2,8 +2,13 @@ package com.br.casadocodigo.loja.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,45 +17,40 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.br.casadocodigo.loja.daos.ProdutoDao;
 import com.br.casadocodigo.loja.models.Produto;
 import com.br.casadocodigo.loja.models.TipoPreco;
+import com.br.casadocodigo.loja.validation.ProdutoValidation;
 
 @Controller
-@RequestMapping(value="produtos")
+@RequestMapping(value="/produtos")
 public class ProdutosController {
 	
 	@Autowired
 	private ProdutoDao produtoDao;
 	
-	/*@RequestMapping("/produtos/produtosform")
-	public String ProdutosRequisicao(){
-		return "produtos/produtosform";
-	}*/
-	//Modificado para retornar uma lista para página
+	@InitBinder
+	public void initBinder(WebDataBinder bind){
+		bind.addValidators(new ProdutoValidation());
+	}
+
 	@RequestMapping("/produtosform")
-	public ModelAndView ProdutosRequisicao(){
+	public ModelAndView produtosRequisicao(){
 		ModelAndView mv = new ModelAndView("produtos/produtosform");
 		//tipo = id que será enviado para view
 		mv.addObject("tipos", TipoPreco.values());
 		return mv;
 	}
 	
-	/*Melhorado este Método
-	@RequestMapping("/produtos")
-	public void gravar(String titulo, String descricao, int paginas){
-		System.out.println(titulo + " - " + descricao + " - " + paginas);
-	}*/
-	
-	//método GET
-	//@RequestMapping(value="/produtos", method=RequestMethod.POST)
 	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView gravar(Produto produto, RedirectAttributes reAttr){
-		System.out.println(produto);
+	public ModelAndView gravar(@Valid Produto produto, BindingResult resultado, RedirectAttributes reAttr){
+		
+		if(resultado.hasErrors()){
+			return produtosRequisicao();
+		}
 		produtoDao.gravar(produto);
-		//return "produtos/ok";
+		
 		reAttr.addFlashAttribute("retorno", "Produto cadastrado com sucesso!");
 		return new ModelAndView("redirect:produtos");
 	}
 	
-	//método POST --Assim ou
 	@RequestMapping( method=RequestMethod.GET)
 	public ModelAndView listar(){
 		List<Produto> produtos = produtoDao.listarProduto();
@@ -58,12 +58,5 @@ public class ProdutosController {
 		mv.addObject("produtos", produtos);
 		return mv;
 	}
-	
-	//Assim
-    /*@RequestMapping("produtos")
-    public String lista(Model model) {
-        List<Produto> produtos = produtoDAO.listar();
-        model.addAttribute("produtos", produtos);
-        return "produtos/lista";
-    }*/
+
 }
