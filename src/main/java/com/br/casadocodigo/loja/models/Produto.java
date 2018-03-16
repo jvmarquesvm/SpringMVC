@@ -23,7 +23,14 @@ public class Produto {
 	private List<Preco> precos;
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar dataLancamento;
+	private String sumarioPath;
 	
+	public String getSumarioPath() {
+		return sumarioPath;
+	}
+	public void setSumarioPath(String sumarioPath) {
+		this.sumarioPath = sumarioPath;
+	}
 	public Calendar getDataLancamento() {
 		return dataLancamento;
 	}

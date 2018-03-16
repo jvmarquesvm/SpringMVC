@@ -9,15 +9,18 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.br.casadocodigo.loja.controllers.HomeController;
 import com.br.casadocodigo.loja.daos.ProdutoDao;
+import com.br.casadocodigo.loja.infra.FileSaver;
 
 @EnableWebMvc
 //@ComponentScan(basePackages={"com.br.casadocodigo.loja.controllers"})
-@ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class})
+@ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class, FileSaver.class})
 public class AppWebConfiguration {
 	
 	//InternalResourceViewResolver fala ao spring o local das views
@@ -48,5 +51,11 @@ public class AppWebConfiguration {
 	    formatterRegistrar.setFormatter(new DateFormatter("dd/MM/yyyy"));
 	    formatterRegistrar.registerFormatters(conversionService);
 	    return conversionService;
+	}
+	
+	//Configurar o envio de arquivos para o Spring
+	@Bean
+	public MultipartResolver multipartResolver(){
+		return new StandardServletMultipartResolver();
 	}
 }
