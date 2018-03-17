@@ -26,7 +26,7 @@ public class ProdutoDao {
 		return manager.createQuery("select p from Produto p", Produto.class).getResultList();
 	}
 
-	public Produto procura(int id) {
+	public Produto procura(Integer id) {
 		//Traz o Produto
 		//return manager.find(Produto.class, id);
 		//Traz Produto e Preço

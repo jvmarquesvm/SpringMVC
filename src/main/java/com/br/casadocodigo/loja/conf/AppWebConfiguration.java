@@ -20,10 +20,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.br.casadocodigo.loja.controllers.HomeController;
 import com.br.casadocodigo.loja.daos.ProdutoDao;
 import com.br.casadocodigo.loja.infra.FileSaver;
+import com.br.casadocodigo.loja.models.CarrinhoCompras;
 
 @EnableWebMvc
 //@ComponentScan(basePackages={"com.br.casadocodigo.loja.controllers"})
-@ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class, FileSaver.class} )
+@ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class, 
+		                                    FileSaver.class, CarrinhoCompras.class} )
 public class AppWebConfiguration  extends WebMvcConfigurerAdapter {
 	
 	//InternalResourceViewResolver fala ao spring o local das views
@@ -33,6 +35,12 @@ public class AppWebConfiguration  extends WebMvcConfigurerAdapter {
 		InternalResourceViewResolver resolverView = new InternalResourceViewResolver();
 		resolverView.setPrefix("/WEB-INF/views/"); // Local das view
 		resolverView.setSuffix(".jsp"); //extensões das views
+		
+		//Necessario para a quantidade de itens no carrinho de compras
+		//resolverView.setExposeContextBeansAsAttributes(true);//Expoem todos os Beans como atributos
+		resolverView.setExposedContextBeanNames("carrinhoCompras"); 
+		// Expoem apenas o Bean que se quer trabalhar - primeira letra minuscula
+		
 		return resolverView;
 	}
 	
