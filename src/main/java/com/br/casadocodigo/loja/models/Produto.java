@@ -21,10 +21,18 @@ public class Produto {
 	private int paginas;
 	@ElementCollection
 	private List<Preco> precos;
+	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar dataLancamento;
+	
 	private String sumarioPath;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getSumarioPath() {
 		return sumarioPath;
 	}

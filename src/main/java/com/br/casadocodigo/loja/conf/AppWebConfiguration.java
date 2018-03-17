@@ -11,7 +11,10 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.br.casadocodigo.loja.controllers.HomeController;
@@ -20,8 +23,8 @@ import com.br.casadocodigo.loja.infra.FileSaver;
 
 @EnableWebMvc
 //@ComponentScan(basePackages={"com.br.casadocodigo.loja.controllers"})
-@ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class, FileSaver.class})
-public class AppWebConfiguration {
+@ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class, FileSaver.class} )
+public class AppWebConfiguration  extends WebMvcConfigurerAdapter {
 	
 	//InternalResourceViewResolver fala ao spring o local das views
 	//@Bean retorno da chamada deste método possa ser gerenciada pelo SpringMVC
@@ -58,4 +61,12 @@ public class AppWebConfiguration {
 	public MultipartResolver multipartResolver(){
 		return new StandardServletMultipartResolver();
 	}
+	
+	//Se não fizer isso, não vai buscar nenhuma configuração CSS ou imagens herdando de WebMvcConfigurerAdapter
+	//Arquivos de CSS devem estar no webapp/resources
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+	
 }

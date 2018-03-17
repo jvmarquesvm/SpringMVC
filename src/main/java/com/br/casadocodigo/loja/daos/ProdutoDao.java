@@ -25,4 +25,14 @@ public class ProdutoDao {
 	public List<Produto> listarProduto(){
 		return manager.createQuery("select p from Produto p", Produto.class).getResultList();
 	}
+
+	public Produto procura(int id) {
+		//Traz o Produto
+		//return manager.find(Produto.class, id);
+		//Traz Produto e Preço
+		return manager.createQuery("select distinct(p) from Produto p join fetch "
+				                        + "  p.precos pe where p.id = :id", Produto.class)
+				                        .setParameter("id", id)
+				                        .getSingleResult();
+	}
 }
