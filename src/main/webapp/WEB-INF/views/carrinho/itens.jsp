@@ -105,9 +105,11 @@
 			            <input type="number" min="0" readonly="readonly" id="quantidade" name="quantidade" value="${carrinhoCompras.getQuantidade(item) }"/>
 			          </td>
 			          <td class="numeric-cell">${carrinhoCompras.getTotal(item) }</td> <!-- valor total somado -->
-			          <td>
-			          	<form action="" method="post">
-			          		<input type="image" src="/excluir.png" alt="Excluir" title="Excluir" />
+			          <td class="remove-item"> 
+			          	<form action="${s:mvcUrl('CCC#remover').arg(0, item.produto.id).arg(1, item.tipoPreco).build() }" 
+			          	                                                        method="post">
+			          		<input type="image" src="${contextPath}resources/imagens/excluir.png" 
+			          		                                            alt="Excluir" title="Excluir" />
 			          	</form>
 			          </td>	
 			      </tr>
@@ -115,9 +117,13 @@
 		      </tbody>
 			  <tfoot>
 			     <tr>
-			       <td colspan="3"><input type="submit" class="checkout" name="checkout" value="Finalizar compra" /></td>
-			       <td class="numeric-cell">${carrinhoCompras.total}</td>
-			       <td></td>
+			     	<td colspan="3">
+			     		<form action="${s:mvcUrl('PC#finalizar').build()}" method="post">
+			       			<input type="submit" class="checkout" name="checkout" value="Finalizar compra" />
+			       		</form>
+			       	</td>
+			       	<td class="numeric-cell">${carrinhoCompras.total}</td>
+			       	<td></td>
 			     </tr>
 			  </tfoot>
 		    </table>
@@ -129,18 +135,11 @@
 		        </a>
 		      </li>          
 		  </ul>
-		  
-		  <h2><a href="http://www.casadocodigo.com.br">Veja todos os livros que publicamos!</a></h2>
+		  <h2><a href="${contextPath}produtos">Veja todos os livros que publicamos!</a></h2>
 		</section> 
-
-		
 		
 	<footer id="layout-footer">
 		<div class="clearfix container">
-
-
-
-
 			<div id="collections-footer">
 				<!-- cdc-footer -->
 				<p class="footer-title">Coleções de Programação</p>

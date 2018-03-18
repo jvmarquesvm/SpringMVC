@@ -9,6 +9,7 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -17,7 +18,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.br.casadocodigo.loja.controllers.CarrinhoComprasController;
 import com.br.casadocodigo.loja.controllers.HomeController;
+import com.br.casadocodigo.loja.controllers.PagamentoController;
 import com.br.casadocodigo.loja.daos.ProdutoDao;
 import com.br.casadocodigo.loja.infra.FileSaver;
 import com.br.casadocodigo.loja.models.CarrinhoCompras;
@@ -25,7 +28,8 @@ import com.br.casadocodigo.loja.models.CarrinhoCompras;
 @EnableWebMvc
 //@ComponentScan(basePackages={"com.br.casadocodigo.loja.controllers"})
 @ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class, 
-		                                    FileSaver.class, CarrinhoCompras.class} )
+		                                    FileSaver.class, CarrinhoCompras.class,
+		                                    CarrinhoComprasController.class, PagamentoController.class} )
 public class AppWebConfiguration  extends WebMvcConfigurerAdapter {
 	
 	//InternalResourceViewResolver fala ao spring o local das views
@@ -75,6 +79,11 @@ public class AppWebConfiguration  extends WebMvcConfigurerAdapter {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
+    }
+    //Permitir requisições REST
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 	
 }

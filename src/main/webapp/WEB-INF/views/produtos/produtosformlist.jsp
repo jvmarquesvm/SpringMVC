@@ -9,7 +9,8 @@
 </head>
 <body>
 	<h1>Lista de Produtos</h1>
-	<div>${retorno}</div>
+	<div>${retorno }</div>
+	<div>${falha }</div>
 	<table>
 		<tr>
 		<td>Título</td>
