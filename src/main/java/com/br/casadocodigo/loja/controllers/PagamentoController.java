@@ -32,9 +32,9 @@ public class PagamentoController {
 		return () -> {
 			try{
 				String url = "http://book-payment.herokuapp.com/payment";
-				rest.postForObject(url, new DadosPagamento(carrinhoCompras.getTotal()), String.class);
+				String response = rest.postForObject(url, new DadosPagamento(carrinhoCompras.getTotal()), String.class);
 				System.out.println(carrinhoCompras.getTotal());
-				model.addFlashAttribute("retorno", "Pagamento Realizado com sucesso");
+				model.addFlashAttribute("retorno", response);
 				return new ModelAndView("redirect:/produtos");
 			} catch ( Exception e) {
 			        e.printStackTrace();

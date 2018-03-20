@@ -1,10 +1,16 @@
 package com.br.casadocodigo.loja.conf;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
@@ -14,7 +20,6 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -24,12 +29,14 @@ import com.br.casadocodigo.loja.controllers.PagamentoController;
 import com.br.casadocodigo.loja.daos.ProdutoDao;
 import com.br.casadocodigo.loja.infra.FileSaver;
 import com.br.casadocodigo.loja.models.CarrinhoCompras;
+import com.google.common.cache.CacheBuilder;
 
 @EnableWebMvc
 //@ComponentScan(basePackages={"com.br.casadocodigo.loja.controllers"})
 @ComponentScan(basePackageClasses={HomeController.class, ProdutoDao.class, 
 		                                    FileSaver.class, CarrinhoCompras.class,
 		                                    CarrinhoComprasController.class, PagamentoController.class} )
+@EnableCaching
 public class AppWebConfiguration  extends WebMvcConfigurerAdapter {
 	
 	//InternalResourceViewResolver fala ao spring o local das views
@@ -80,10 +87,24 @@ public class AppWebConfiguration  extends WebMvcConfigurerAdapter {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+    
     //Permitir requisições REST
     @Bean
     public RestTemplate restTemplate(){
-        return new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
+		return restTemplate;
     }
-	
+    
+    //Permitir o cache do Spring
+    @Bean
+    public CacheManager cacheManager(){
+    	//Utilizando do próprio Spring
+    	//return new ConcurrentMapCacheManager();
+    	
+    	//Utilizando do Guava
+    	CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(5, TimeUnit.MINUTES);
+    	GuavaCacheManager manager = new GuavaCacheManager();
+    	manager.setCacheBuilder(builder);
+    	return manager;
+    }	
 }
