@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +43,8 @@
 <body class="produto">
   <header id="layout-header">
 		<div class="clearfix container">
-			<a href="${contextPath}imagens/cdc-logo.svg" id="logo"></a>
+			<!-- <a href="${contextPath}imagens/cdc-logo.svg" id="logo"></a>  -->
+			<a href="${s:mvcUrl('HC#index').build() }" id="logo" ></a>
 			<div id="header-content">
 				<nav id="main-nav">
 					<ul class="clearfix">
@@ -91,8 +94,11 @@
 		  </header>
 	  
 		  <section class="buy-options clearfix">  
-		  <form action='<c:url value="/carrinho/add" />' method="post" class="container">
-		   <input type="hidden" name="produtoId" value="${produto.id}" />
+		  <!-- <form action='<c:url value="/carrinho/add" />' method="post" class="container">  -->
+		  <form:form servletRelativeAction="/carrinho/add" method="post" cssClass="container">
+		  
+		    <input type="hidden" name="produtoId" value="${produto.id}" />
+		    <!-- <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />  -->
 		    <ul id="variants" class="clearfix">
 		    	  <c:forEach items="${produto.precos}" var="preco">
 			    	  <li class="buy-option">
@@ -104,7 +110,8 @@
 		        </c:forEach>     
 		    </ul>
 		     <button type="submit" class="submit-image icon-basket-alt" alt="Compre Agora" title="Compre Agora"></button>
-		  </form>
+		  <!-- </form>  -->
+		  </form:form>
 		  </section>
 	  
 			<div class="container">

@@ -1,7 +1,5 @@
 package com.br.casadocodigo.loja.conf;
 
-import java.io.File;
-
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
@@ -14,14 +12,13 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Class[] {SecurityConfiguration.class , AppWebConfiguration.class, JPAConfiguration.class};
 	}
 
 	//AppWebConfiguration sera a classe de configuracão do projeto
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {AppWebConfiguration.class, JPAConfiguration.class};
+		return new Class[] {};
 	}
 	
 	//O Spring atenderá requisições através da pasta raiz

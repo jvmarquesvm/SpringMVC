@@ -42,7 +42,7 @@
 <body>
   <header id="layout-header">
 		<div class="clearfix container">
-			<a href="/" id="logo">
+			<a href="${s:mvcUrl('HC#index').build() }" id="logo">
 			</a>
 			<div id="header-content">
 				<nav id="main-nav">
@@ -110,6 +110,8 @@
 			          	                                                        method="post">
 			          		<input type="image" src="${contextPath}resources/imagens/excluir.png" 
 			          		                                            alt="Excluir" title="Excluir" />
+							<!-- Fazendo da forma manual -->
+			       			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />				          		                                            
 			          	</form>
 			          </td>	
 			      </tr>
@@ -120,6 +122,8 @@
 			     	<td colspan="3">
 			     		<form action="${s:mvcUrl('PC#finalizar').build()}" method="post">
 			       			<input type="submit" class="checkout" name="checkout" value="Finalizar compra" />
+			       			<!-- Fazendo da forma manual -->
+			       			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 			       		</form>
 			       	</td>
 			       	<td class="numeric-cell">${carrinhoCompras.total}</td>
