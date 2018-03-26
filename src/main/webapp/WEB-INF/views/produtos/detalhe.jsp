@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
+
+<tags:pageTemplate titulo="${produto.titulo}">
 
 <%-- Movido para cabecalho.jsp
 <!DOCTYPE html>
@@ -78,7 +81,7 @@
 		</ul>
 	</nav> Movido para cabecalho.jsp  --%>
 	
-<%@ include file="/WEB-INF/views/cabecalho.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/cabecalho.jsp" %> --%>
 	<article id="${produto.id}">
 		  <header id="product-highlight" class="clearfix">
 		    <div id="product-overview" class="container">
@@ -133,7 +136,7 @@
 			  </section>
 			</div>
 	</article>	
-<%@ include file="/WEB-INF/views/rodape.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/rodape.jsp" %> --%>
 <!-- Movido para rodape.jsp -->
 <!-- 	<footer id="layout-footer"> -->
 <!-- 		<div class="clearfix container"> -->
@@ -214,3 +217,5 @@
 <!-- 	</footer> -->
 <!--</body> -->
 <!--</html> -->
+
+</tags:pageTemplate>

@@ -3,6 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
+
+<tags:pageTemplate titulo="Livros de Java, Android, IOs, Mobile e muito mais...">
+
 <!-- Retirado para cabecalho.jsp -->
 <!-- <!DOCTYPE html> -->
 <!-- <html> -->
@@ -84,8 +89,7 @@
 <!-- 			<li class="category"><a href="/collections/outros"> Outros </a></li> -->
 <!-- 		</ul> -->
 <!-- 	</nav> cabecalho.jsp-->
-
-<%@ include file="/WEB-INF/views/cabecalho.jsp" %>		
+<%-- <%@ include file="/WEB-INF/views/cabecalho.jsp" %> --%>		
 	<section id="index-section" class="container middle">
 
 		<h1 class="cdc-call">Últimos dias com os preços promocionais. Aproveite!</h1>
@@ -104,7 +108,6 @@
 			</a></li>
 			</c:forEach>
 			<!-- Fechando aqui -->
-			
 		</ul>
 
 		<h2 class="cdc-call">Diferenciais da Casa do Código</h2>
@@ -142,12 +145,9 @@
 				</p>
 			</li>
 		</ul>
-
-
-
 	</section>
 
-<%@include file="/WEB-INF/views/rodape.jsp" %>
+<%--  <%@include file="/WEB-INF/views/rodape.jsp" %> --%>
 <!-- 	<footer id="layout-footer"> -->
 <!-- 		<div class="clearfix container"> -->
 <!-- 			<div id="collections-footer"> -->
@@ -226,4 +226,6 @@
 
 <!-- </body> -->
 <!-- </html> -->
+
+</tags:pageTemplate>
 

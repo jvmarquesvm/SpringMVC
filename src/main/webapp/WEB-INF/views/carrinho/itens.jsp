@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
+
+<tags:pageTemplate titulo="Livros de Java, Android, IOs, Mobile e muito mais...">
+
+
 <!-- Movido para cabecalho.jsp -->
 <!-- <!DOCTYPE html> -->
 <!-- <html> -->
@@ -75,7 +80,7 @@
 <!-- 			<li class="category"><a href="/collections/outros"> Outros </a></li> -->
 <!-- 		</ul> -->
 <!-- 	</nav> -->
-<%@ include file="/WEB-INF/views/cabecalho.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/cabecalho.jsp" %> --%>
 	<section class="container middle">
 		  <h2 id="cart-title">Seu carrinho de compras</h2>
 		    <table id="cart-table">
@@ -142,7 +147,7 @@
 		  </ul>
 		  <h2><a href="${contextPath}produtos">Veja todos os livros que publicamos!</a></h2>
 		</section> 
-<%@include file="/WEB-INF/views/rodape.jsp" %>		
+<%-- <%@include file="/WEB-INF/views/rodape.jsp" %> --%>		
 <!-- 	<footer id="layout-footer"> -->
 <!-- 		<div class="clearfix container"> -->
 <!-- 			<div id="collections-footer"> -->
@@ -220,3 +225,4 @@
 <!-- 	</footer> -->
 <!-- </body> -->
 <!-- </html> -->
+</tags:pageTemplate>
