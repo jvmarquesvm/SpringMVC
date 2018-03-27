@@ -103,7 +103,7 @@
 				<fmt:message key="navegacao.categoria.mobile"/> 
 			</a></li>
 			<li class="category"><a	href="/collections/livros-desenvolvimento-web"> 
-				<fmt:message key="navegacao.categorio.web"/> 
+				<fmt:message key="navegacao.categoria.web"/> 
 			</a></li>
 			<li class="category"><a href="/collections/outros"> 
 				<fmt:message key="navegacao.categoria.outros"/> 
