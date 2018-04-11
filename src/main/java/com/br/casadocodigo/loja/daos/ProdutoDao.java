@@ -26,7 +26,8 @@ public class ProdutoDao {
 	}
 	
 	public List<Produto> listarProduto(){
-		return manager.createQuery("select p from Produto p", Produto.class).getResultList();
+		return manager.createQuery("select distinct(p) from Produto p join fetch p.precos", Produto.class).getResultList();
+		//return manager.createQuery("select p from Produto p", Produto.class).getResultList(); //Assim ocorre o N+1
 	}
 
 	public Produto procura(Integer id) {

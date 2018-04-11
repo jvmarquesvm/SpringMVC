@@ -51,12 +51,14 @@
 			<tr>
 			<th>Título</th>
 			<th>Descrição</th>
+			<th>Preço</th>
 			<th>Páginas</th>
 			</tr>
 			<c:forEach items="${produtos}" var="produto" varStatus="">
 			<tr>
 				<td><a href="${s:mvcUrl('PC#find').arg(0,produto.id).build()}">${produto.titulo}</a></td>
 				<td>${produto.descricao}</td>
+				<td>${produto.precos}</td>
 				<td>${produto.paginas}</td>
 			</tr>
 			</c:forEach>

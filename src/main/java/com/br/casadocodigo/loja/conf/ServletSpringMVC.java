@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -35,7 +36,7 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	protected Filter[] getServletFilters(){
 		CharacterEncodingFilter charencoding = new CharacterEncodingFilter();
 		charencoding.setEncoding("UTF-8");
-		return new Filter[]{charencoding} ;
+		return new Filter[]{charencoding, new OpenEntityManagerInViewFilter()} ; //Adicionado o filtro para manter aberto até a visualização na tela
 	}
 	
 	//Fazer a conversão dos arquivos para o Spring Gerenciá-lo
