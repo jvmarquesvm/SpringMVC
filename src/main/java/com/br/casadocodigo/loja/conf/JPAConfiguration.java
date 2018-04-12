@@ -17,8 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class JPAConfiguration {
 
+	//public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource ) {
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Properties additionalProperties ) {		
+		
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 
@@ -39,11 +41,22 @@ public class JPAConfiguration {
 		
 		//Properties props = aditionalProperties();
 
-		factoryBean.setJpaProperties( aditionalProperties());
+		//factoryBean.setJpaProperties( aditionalProperties());
+		factoryBean.setJpaProperties( additionalProperties);
 
 		factoryBean.setPackagesToScan("com.br.casadocodigo.loja.models");
 
 		return factoryBean;
+	}
+	
+	@Bean
+	@Profile("dev")
+	public Properties additionalProperties(){
+	    Properties props = new Properties();
+	    props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+	    props.setProperty("hibernate.show_sql", "true");
+	    props.setProperty("hibernate.hbm2ddl.auto", "update");
+	    return props;
 	}
 	
 	@Bean
@@ -55,14 +68,6 @@ public class JPAConfiguration {
 	    dataSource.setUrl("jdbc:mysql://localhost:3306/casadocodigo");
 	    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 	    return dataSource;
-	}
-	
-	private Properties aditionalProperties(){
-	    Properties props = new Properties();
-	    props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-	    props.setProperty("hibernate.show_sql", "true");
-	    props.setProperty("hibernate.hbm2ddl.auto", "update");
-	    return props;
 	}
 	
 	//Configuração de transação
