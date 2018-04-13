@@ -47,11 +47,11 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	}
 	
 	//Ouvinte de Contexto para saber se o profile é dev
-	/*@Override
+	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 	    super.onStartup(servletContext);
 	    servletContext.addListener(new RequestContextListener());
 	    servletContext.setInitParameter("spring.profiles.active", "dev");
-	}*/
+	}
 	
 }
