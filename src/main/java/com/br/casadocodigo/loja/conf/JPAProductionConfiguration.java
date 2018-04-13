@@ -19,10 +19,20 @@ public class JPAProductionConfiguration {
 	private Environment environment;
 	
 	@Bean
+	public Properties additionalProperties() {
+		Properties props = new Properties();
+		props.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		props.setProperty("hibernate.show_sql", "true");
+		props.setProperty("hibernate.hbm2ddl.auto", "update");
+		return props;
+	}
+	
+	@Bean
 	public DataSource dataSource() throws URISyntaxException{
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		
+		//usuario:senha@host:port/path
 		URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
 
 		//dataSource.setUrl("jdbc:mysql://localhost:3306/casadocodigo");
@@ -35,13 +45,5 @@ public class JPAProductionConfiguration {
 		return dataSource;
 	}
 
-	@Bean
-	public Properties aditionalProperties() {
-		Properties props = new Properties();
-		props.setProperty("hibernate.dialect",
-				"org.hibernate.dialect.PostgreSQLDialect");
-		props.setProperty("hibernate.show_sql", "true");
-		props.setProperty("hibernate.hbm2ddl.auto", "update");
-		return props;
-	}
+
 }
